@@ -24,12 +24,15 @@ export interface Order {
   updated: string;
 }
 
+// This would be an environment variable in a real app
+const API_BASE_URL = "http://localhost:3001";
+
 const fetcher = (args: string | URL | Request) =>
   fetch(args).then((res) => res.json());
 
 export function useOrders() {
   const { data, error, isLoading } = useSWR<{ orders: Order[] }>(
-    "http://localhost:3001/orders",
+    `${API_BASE_URL}/orders`,
     fetcher
   );
 
@@ -42,7 +45,7 @@ export function useOrders() {
 
 // invalidate cache and trigger a re-fetch
 export function invalidateOrdersCache() {
-  mutate("http://localhost:3001/orders");
+  mutate(`${API_BASE_URL}/orders`);
 }
 
 export async function removeOrderItem(
@@ -50,7 +53,7 @@ export async function removeOrderItem(
   orderItemId: number
 ): Promise<Order> {
   const response = await fetch(
-    `http://localhost:3001/orders/${orderId}/remove-item`,
+    `${API_BASE_URL}/orders/${orderId}/remove-item`,
     {
       method: "POST",
       headers: {
@@ -68,7 +71,7 @@ export async function removeOrderItem(
 }
 
 export async function deleteOrder(orderId: number): Promise<Order> {
-  const response = await fetch(`http://localhost:3001/orders/${orderId}`, {
+  const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
     method: "DELETE",
   });
 

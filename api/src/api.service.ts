@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { GetOrdersDto } from "./api.dto";
+import { GetOrdersResponse } from "./api.dto";
 import { Order, OrderItem, OrderStatus } from "./api.interface";
 
 /**
@@ -63,7 +63,7 @@ export class ApiService {
     ];
   }
 
-  getOrders(): GetOrdersDto {
+  getOrders(): GetOrdersResponse {
     return { orders: this.orders };
   }
 
@@ -78,10 +78,12 @@ export class ApiService {
     }
 
     console.log(`Deleting order [orderId=${this.orders[orderIndex].id}]`);
-    return this.orders.splice(orderIndex, 1)[0];
+    const [deletedOrder] = this.orders.splice(orderIndex, 1);
+    return deletedOrder;
   }
 
   removeOrderItem(orderId: string, orderItemId: number): Order {
+    // note: in the real world, we could add a check here to prevent removing from a 'completed' order
     const order = this.orders.find((order) => order.id === Number(orderId));
     if (!order) {
       console.log(

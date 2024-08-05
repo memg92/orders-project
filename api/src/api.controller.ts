@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { ApiService } from "./api.service";
-import { GetOrdersDto, RemoveOrderItemDto } from "./api.dto";
+import { GetOrdersResponse, RemoveOrderItemDto } from "./api.dto";
 import { Order } from "./api.interface";
 
 @Controller("/orders")
@@ -8,7 +8,7 @@ export class ApiController {
   constructor(private readonly apiService: ApiService) {}
 
   @Get()
-  getOrders(): GetOrdersDto {
+  getOrders(): GetOrdersResponse {
     return this.apiService.getOrders();
   }
 
