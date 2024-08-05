@@ -14,7 +14,12 @@ export class ApiService {
     this.orderItems = [
       { id: 1, product: "Apple", quantity: 2, price: 20 },
       { id: 2, product: "Carrots", quantity: 1, price: 50 },
-      { id: 3, product: "Salmon", quantity: 3, price: 10 },
+      {
+        id: 3,
+        product: "Salmon",
+        quantity: 3,
+        price: 10,
+      },
       { id: 4, product: "Potato", quantity: 4, price: 2 },
       { id: 5, product: "Salmon", quantity: 1, price: 10 },
     ];
